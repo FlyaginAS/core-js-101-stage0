@@ -123,8 +123,11 @@ function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const startIndex = str.indexOf(value);
+  const endIndex = startIndex + value.length;
+
+  return str.slice(0, startIndex) + str.slice(endIndex);
 }
 
 /**
