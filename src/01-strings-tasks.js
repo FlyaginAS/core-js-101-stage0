@@ -230,8 +230,41 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  // we could use a unicode system
+
+  // 'A'.charCodeAt(0) === 65
+  // 'Z'.charCodeAt(0) === 90
+  // 13th alphabetic char will be 65+12=77th
+  // 'a'.charCodeAt(0) === 97
+  // 'z'.charCodeAt(0) === 122
+  // 13th alphabetic char will be 97+12=109th
+
+  function convertToROT13(char) {
+    const charCode = char.charCodeAt(0);
+    // we have different approach before and after 13th char
+    if (
+      (charCode >= 65 && charCode <= 77)
+      || (charCode >= 97 && charCode <= 109)
+    ) {
+      return String.fromCharCode(charCode + 13);
+    }
+
+    if (
+      (charCode >= 78 && charCode <= 90)
+      || (charCode >= 110 && charCode <= 122)
+    ) {
+      return String.fromCharCode(charCode - 13);
+    }
+
+    return char;
+  }
+
+  const arr = str.split('');
+
+  const convertedArr = arr.map((char) => convertToROT13(char));
+
+  return convertedArr.join('');
 }
 
 /**
