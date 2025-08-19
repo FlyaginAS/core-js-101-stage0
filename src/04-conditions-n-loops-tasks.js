@@ -442,8 +442,36 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const resultArr = [];
+  const firstPath = pathes[0];
+
+  for (let i = 0; i < firstPath.length; i += 1) {
+    const char = firstPath[i];
+    let isCommon = true;
+
+    for (let j = 1; j < pathes.length; j += 1) {
+      if (pathes[j][i] !== char) {
+        isCommon = false;
+        // символ не совпал - прерываем
+        break;
+      }
+    }
+
+    if (isCommon) {
+      resultArr.push(char);
+    } else {
+      // общий префикс закончился - прерываем
+      break;
+    }
+  }
+
+  const commonPath = resultArr.join('');
+  // нужно обрезать по каталогу, а не по случайной части имени...  правим
+  const lastIndex = commonPath.lastIndexOf('/');
+
+  // console.log(commonPath.slice(0, lastIndex + 1));
+  return commonPath.slice(0, lastIndex + 1);
 }
 
 
