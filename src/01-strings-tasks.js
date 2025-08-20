@@ -244,15 +244,15 @@ function encodeToRot13(str) {
     const charCode = char.charCodeAt(0);
     // we have different approach before and after 13th char
     if (
-      (charCode >= 65 && charCode <= 77)
-      || (charCode >= 97 && charCode <= 109)
+      (charCode >= 65 && charCode <= 77) ||
+      (charCode >= 97 && charCode <= 109)
     ) {
       return String.fromCharCode(charCode + 13);
     }
 
     if (
-      (charCode >= 78 && charCode <= 90)
-      || (charCode >= 110 && charCode <= 122)
+      (charCode >= 78 && charCode <= 90) ||
+      (charCode >= 110 && charCode <= 122)
     ) {
       return String.fromCharCode(charCode - 13);
     }
