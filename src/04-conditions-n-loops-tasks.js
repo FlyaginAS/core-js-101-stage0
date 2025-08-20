@@ -568,8 +568,95 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  // написать ф-ии проверяющие строки, столбцы и две диагонали
+  let winner;
+
+  function checkRows() {
+    for (let i = 0; i < 3; i += 1) {
+      const row = position[i];
+      let isEqual = true;
+
+      for (let j = 0; j < 3; j += 1) {
+        if (row[0] !== row[j]) {
+          isEqual = false;
+          break;
+        }
+      }
+
+      if (isEqual && row[0] !== undefined) {
+        [winner] = row;
+        return winner;
+      }
+    }
+    return winner; // for linter rules
+  }
+  checkRows();
+
+  function checkColumns() {
+    for (let i = 0; i < 3; i += 1) {
+      let isEqual = true;
+      const td0 = position[0][i];
+
+      for (let j = 0; j < 3; j += 1) {
+        // go through column
+        // 00, 10, 20
+        // 01, 11, 21
+        // 02, 12, 22
+
+        if (td0 !== position[j][i]) {
+          isEqual = false;
+          break;
+        }
+      }
+
+      if (isEqual && td0 !== undefined) {
+        winner = td0;
+        return winner;
+      }
+    }
+    return winner; // for linter rules
+  }
+  checkColumns();
+
+  function checkDiags() {
+    // главную;
+    const td0 = position[0][0];
+    let isEqual = true;
+
+    for (let i = 0; i < 3; i += 1) {
+      if (position[i][i] !== td0) {
+        isEqual = false;
+        break;
+      }
+    }
+
+    if (isEqual && td0 !== undefined) {
+      winner = td0;
+      return winner;
+    }
+
+    // и другую
+    // 02, 11, 20 => i мняется в прямом порядке, а джи в обратном
+    const td00 = position[0][2];
+    let isEqual2 = true;
+
+    for (let i = 0; i < 3; i += 1) {
+      if (position[i][2 - i] !== td00) {
+        isEqual2 = false;
+        break;
+      }
+    }
+
+    if (isEqual2 && td00 !== undefined) {
+      winner = td00;
+      return winner;
+    }
+    return winner; // for linter rules
+  }
+  checkDiags();
+
+  return winner;
 }
 
 
